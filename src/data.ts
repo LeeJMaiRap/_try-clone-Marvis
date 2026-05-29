@@ -1,22 +1,19 @@
 import { BookOpen, BriefcaseBusiness, FileSearch, Gamepad2, Newspaper, Plane, Settings, ShieldCheck } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import type { Capability, FileRecord, Room, TaskItem } from './types/agentRoom';
 
-export type Capability = {
-  title: string;
-  description: string;
-  prompt: string;
-  icon: LucideIcon;
-  accent: string;
-};
+export const rooms: Room[] = [
+  { id: 'ops', name: 'Ops Room', description: 'System health, cleanup, device status, and native actions.', agent: 'System helper', status: 'active' },
+  { id: 'docs', name: 'Docs Room', description: 'Contracts, spreadsheets, papers, and file intelligence.', agent: 'Document analyst', status: 'watching' },
+  { id: 'life', name: 'Life Room', description: 'Travel screenshots, personal planning, and media organization.', agent: 'Trip planner', status: 'idle' },
+  { id: 'signals', name: 'Signals Room', description: 'News, game rewards, industry watchers, and recurring digests.', agent: 'News watcher', status: 'watching' },
+];
 
-export type FileRecord = {
-  title: string;
-  type: 'Document' | 'Image' | 'Spreadsheet' | 'PDF';
-  date: string;
-  people: string[];
-  topics: string[];
-  ocr: string;
-};
+export const tasks: TaskItem[] = [
+  { title: 'Index local workspace files', roomId: 'docs', progress: 72, state: 'running' },
+  { title: 'Prepare system cleanup checklist', roomId: 'ops', progress: 100, state: 'ready' },
+  { title: 'Watch expiring game rewards', roomId: 'signals', progress: 38, state: 'queued' },
+  { title: 'Group travel screenshots by place', roomId: 'life', progress: 54, state: 'running' },
+];
 
 export const capabilities: Capability[] = [
   { title: 'Document analyst', description: 'Summarize contracts, spreadsheets, decks, and meeting notes.', prompt: 'Summarize my Q2 contract risks and action items.', icon: BriefcaseBusiness, accent: 'from-sky-400 to-cyan-300' },
@@ -45,6 +42,6 @@ export const fileRecords: FileRecord[] = [
 ];
 
 export const trustSignals = [
-  { icon: ShieldCheck, label: 'Local-first index', text: 'Search demo keeps sample files on device.' },
-  { icon: FileSearch, label: 'File intelligence', text: 'Query title, OCR, people, date, and topics.' },
+  { icon: ShieldCheck, label: 'Native shell', text: 'Runs as desktop app with isolated renderer.' },
+  { icon: FileSearch, label: 'Local file scan', text: 'Folder picker returns metadata only, no destructive actions.' },
 ];
